@@ -1,0 +1,8 @@
+# 自定义 Action：回充电桩充电
+# 三段结构：目标 --- 结果 --- 反馈
+int32 dock_id
+---
+bool success
+float32 battery_level
+---
+float32 progress

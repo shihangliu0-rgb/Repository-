@@ -1,0 +1,60 @@
+# ============================================================
+# ros2_control 控制器配置（由 gz_ros2_control 插件加载）
+#
+# 两个控制器：
+#   - joint_state_broadcaster: 把所有关节状态发布到 /joint_states
+#   - diff_drive_base_controller: 差速运动学，订阅速度指令，发布里程计 /odom
+#
+# /**/ 通配符：无论有没有命名空间都能匹配到节点。
+# ============================================================
+
+/**/controller_manager:
+  ros__parameters:
+    update_rate: 100  # Hz
+    use_sim_time: true
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+/**/diff_drive_base_controller:
+  ros__parameters:
+    type: diff_drive_controller/DiffDriveController
+
+    left_wheel_names: ["left_wheel_joint"]
+    right_wheel_names: ["right_wheel_joint"]
+
+    # 与 URDF 中的轮距 / 轮半径保持一致！（轮距 = 0.20 + 0.02 = 0.22）
+    wheel_separation: 0.22
+    wheel_radius: 0.05
+
+    wheel_separation_multiplier: 1.0
+    left_wheel_radius_multiplier: 1.0
+    right_wheel_radius_multiplier: 1.0
+
+    publish_rate: 50.0
+    odom_frame_id: odom
+    base_frame_id: base_link
+    pose_covariance_diagonal: [0.001, 0.001, 0.0, 0.0, 0.0, 0.01]
+    twist_covariance_diagonal: [0.001, 0.0, 0.0, 0.0, 0.0, 0.01]
+
+    open_loop: false
+    enable_odom_tf: true        # 控制器发布 odom -> base_link 的 TF
+
+    cmd_vel_timeout: 0.5
+    use_stamped_vel: false      # 订阅 geometry_msgs/Twist（未带时间戳版本）
+                                # 话题名: /diff_drive_base_controller/cmd_vel_unstamped
+                                # （URDF 里已将其重映射为 /cmd_vel）
+
+    # 速度 / 加速度限制
+    linear.x.max_velocity: 1.0
+    linear.x.min_velocity: -1.0
+    linear.x.max_acceleration: 1.0
+    linear.x.max_jerk: .NAN
+    linear.x.min_jerk: .NAN
+
+    angular.z.max_velocity: 2.0
+    angular.z.min_velocity: -2.0
+    angular.z.max_acceleration: 2.0
+    angular.z.min_acceleration: -2.0
+    angular.z.max_jerk: .NAN
+    angular.z.min_jerk: .NAN

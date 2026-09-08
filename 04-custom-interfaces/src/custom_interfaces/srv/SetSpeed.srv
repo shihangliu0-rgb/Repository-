@@ -1,0 +1,7 @@
+# 自定义服务：设置速度
+# --- 上方是请求（Request），下方是应答（Response）
+float64 linear_x
+float64 angular_z
+---
+bool success
+string message

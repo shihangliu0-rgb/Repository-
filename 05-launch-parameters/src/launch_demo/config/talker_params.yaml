@@ -1,0 +1,10 @@
+# YAML 参数文件：节点名 -> ros__parameters -> 参数键值
+# 一个文件可以同时配置多个节点。
+talker:
+  ros__parameters:
+    message: "Hello from YAML config"
+    publish_frequency: 0.5
+
+listener:
+  ros__parameters:
+    prefix: "[YAML]"

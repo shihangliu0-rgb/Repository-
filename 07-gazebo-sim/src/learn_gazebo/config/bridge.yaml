@@ -1,0 +1,20 @@
+# ============================================================
+# ros_gz_bridge 配置：Gazebo 传输 <-> ROS 2 话题
+#
+# 驱动和里程计走 ros2_control（纯 ROS 2 侧），无需桥接；
+# 这里只桥接「仿真时钟」和「激光雷达」两样东西。
+# ============================================================
+
+# 仿真时钟：所有节点 use_sim_time:=true 时，/clock 必须来自仿真
+- ros_topic_name: "/clock"
+  gz_topic_name: "/clock"
+  ros_type_name: "rosgraph_msgs/msg/Clock"
+  gz_type_name: "gz.msgs.Clock"
+  direction: GZ_TO_ROS
+
+# 激光雷达：URDF 中 <topic>scan</topic> 决定 gz 话题名
+- ros_topic_name: "/scan"
+  gz_topic_name: "/scan"
+  ros_type_name: "sensor_msgs/msg/LaserScan"
+  gz_type_name: "gz.msgs.LaserScan"
+  direction: GZ_TO_ROS

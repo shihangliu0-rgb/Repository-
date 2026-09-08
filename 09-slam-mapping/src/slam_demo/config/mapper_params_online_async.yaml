@@ -1,0 +1,81 @@
+# ============================================================
+# slam_toolbox 参数（online_async 模式）
+# 基于官方模板，针对本课程机器人标注了需要关注的位置。
+#
+# 三个坐标系 + 一个话题是关键，必须与机器人一致：
+#   odom_frame / map_frame / base_frame / scan_topic
+# ============================================================
+slam_toolbox:
+  ros__parameters:
+    use_sim_time: true
+
+    # ---- 求解器插件 ----
+    solver_plugin: solver_plugins::CeresSolver
+    ceres_linear_solver: SPARSE_NORMAL_CHOLESKY
+    ceres_preconditioner: SCHUR_JACOBI
+    ceres_trust_strategy: LEVENBERG_MARQUARDT
+    ceres_dogleg_type: TRADITIONAL_DOGLEG
+    ceres_loss_function: None
+
+    # ---- 坐标系与话题（★ 与机器人对应）----
+    odom_frame: odom
+    map_frame: map
+    base_frame: base_footprint      # 我们的 URDF 有这个系
+    scan_topic: /scan
+    use_map_saver: true
+    mode: mapping                   # 建图模式；定位模式改 localization
+
+    # ---- 建图行为 ----
+    debug_logging: false
+    throttle_scans: 1
+    transform_publish_period: 0.02  # map->odom TF 发布周期；0 则不发布
+    map_update_interval: 5.0        # 地图更新周期（秒），调小地图刷得更快
+    resolution: 0.05                # 地图分辨率（米/栅格）
+    restamp_tf: false
+    min_laser_range: 0.0
+    max_laser_range: 20.0
+    minimum_time_interval: 0.5
+    transform_timeout: 0.2
+    tf_buffer_duration: 30.0
+    stack_size_to_use: 40000000
+    enable_interactive_mode: true
+
+    # ---- 通用参数 ----
+    use_scan_matching: true
+    use_scan_barycenter: true
+    # 移动 0.5m 或转 0.5rad 才更新一次地图（太小会抖、太大地图更新慢）
+    minimum_travel_distance: 0.5
+    minimum_travel_heading: 0.5
+    check_min_dist_and_heading_precisely: false
+    scan_buffer_size: 10
+    scan_buffer_maximum_scan_distance: 10.0
+    link_match_minimum_response_fine: 0.1
+    link_scan_maximum_distance: 1.5
+    loop_search_maximum_distance: 3.0
+    do_loop_closing: true           # 回环检测：回到走过的地方会校正地图
+    loop_match_minimum_chain_size: 10
+    loop_match_maximum_variance_coarse: 3.0
+    loop_match_minimum_response_coarse: 0.35
+    loop_match_minimum_response_fine: 0.45
+
+    # ---- 相关性匹配 ----
+    correlation_search_space_dimension: 0.5
+    correlation_search_space_resolution: 0.01
+    correlation_search_space_smear_deviation: 0.1
+
+    # ---- 回环搜索空间 ----
+    loop_search_space_dimension: 8.0
+    loop_search_space_resolution: 0.05
+    loop_search_space_smear_deviation: 0.03
+
+    # ---- 扫描匹配器 ----
+    distance_variance_penalty: 0.5
+    angle_variance_penalty: 1.0
+    fine_search_angle_offset: 0.00349
+    coarse_search_angle_offset: 0.349
+    coarse_angle_resolution: 0.0349
+    minimum_angle_penalty: 0.9
+    minimum_distance_penalty: 0.5
+    use_response_expansion: true
+    min_pass_through: 2
+    occupancy_threshold: 0.1
