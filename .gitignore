@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# RepoLens output
+repolens.json
+repolens.md
+report.html
+repolens-report.html
+!examples/*.html
+
+# Editors / OS
+.DS_Store
+.idea/
+.vscode/
