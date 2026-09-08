@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="DevBox — 纯前端开发者工具箱：JSON、Base64、时间戳、哈希、正则、二维码等 17 个常用工具，数据不出浏览器。">
+  <title>DevBox · 开发者工具箱</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A7%B0%3C/text%3E%3C/svg%3E">
+  <script>
+    // 提前设置主题，避免闪烁（localStorage > 系统偏好）
+    (function () {
+      var t = null;
+      try { t = localStorage.getItem('devbox.theme'); } catch (e) {}
+      if (t !== 'light' && t !== 'dark') {
+        t = window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <div class="app">
+    <!-- 顶栏（移动端） -->
+    <header class="topbar">
+      <button id="menuBtn" class="iconbtn" title="菜单" aria-label="打开菜单">☰</button>
+      <a class="brand-mini" href="#/">🧰 DevBox</a>
+      <button id="themeBtnTop" class="iconbtn" title="切换主题">🌗</button>
+    </header>
+    <div id="overlay" class="overlay" hidden></div>
+
+    <!-- 侧边栏 -->
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#/">
+        <span class="brand-logo">🧰</span>
+        <span class="brand-text">DevBox <small>开发者工具箱</small></span>
+      </a>
+      <div class="searchbox">
+        <input id="searchInput" type="search" placeholder="搜索工具…" autocomplete="off">
+        <kbd>/</kbd>
+      </div>
+      <nav class="nav" id="nav"></nav>
+      <div class="sidebar-foot">
+        <button id="themeBtn" class="btn ghost sm" title="切换明暗主题">🌗 明暗切换</button>
+        <span class="muted" id="verText"></span>
+      </div>
+    </aside>
+
+    <!-- 主内容 -->
+    <main class="main" id="main"></main>
+  </div>
+
+  <!-- 脚本：顺序加载（core → utils → vendor → tools → app） -->
+  <script src="assets/js/core.js"></script>
+  <script src="assets/js/utils.js"></script>
+  <script src="assets/vendor/qrcode.js"></script>
+  <script src="assets/vendor/qrcode_UTF8.js"></script>
+  <script src="assets/vendor/marked.min.js"></script>
+  <script src="assets/js/tools/json.js"></script>
+  <script src="assets/js/tools/base64.js"></script>
+  <script src="assets/js/tools/url.js"></script>
+  <script src="assets/js/tools/jwt.js"></script>
+  <script src="assets/js/tools/hash.js"></script>
+  <script src="assets/js/tools/img2base64.js"></script>
+  <script src="assets/js/tools/timestamp.js"></script>
+  <script src="assets/js/tools/numberbase.js"></script>
+  <script src="assets/js/tools/units.js"></script>
+  <script src="assets/js/tools/color.js"></script>
+  <script src="assets/js/tools/regex.js"></script>
+  <script src="assets/js/tools/diff.js"></script>
+  <script src="assets/js/tools/textproc.js"></script>
+  <script src="assets/js/tools/markdown.js"></script>
+  <script src="assets/js/tools/uuid.js"></script>
+  <script src="assets/js/tools/password.js"></script>
+  <script src="assets/js/tools/qrcode.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
