@@ -1,0 +1,21 @@
+# 编译产物 / 调试产物（这些是你本地实验生成的，不进版本库）
+*.exe
+*.obj
+*.o
+*.pdb
+*.ilk
+*.exp
+*.lib
+*.a
+*.disasm.txt
+headers.txt
+disasm.txt
+imports.txt
+
+# Python
+__pycache__/
+*.pyc
+
+# 编辑器
+.vscode/
+.idea/
