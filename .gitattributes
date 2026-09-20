@@ -1,0 +1,20 @@
+# 统一换行符，避免"在 Linux 里写、在 Windows 上跑"时出问题
+
+* text=auto
+
+# Windows 批处理必须是 CRLF，否则某些情况下 label/goto 会解析异常
+*.bat  text eol=crlf
+*.cmd  text eol=crlf
+*.ps1  text eol=crlf
+
+# 文档和源码用 LF 存进仓库，检出时按平台自动转换
+*.md   text
+*.py   text
+*.c    text
+*.h    text
+*.cpp  text
+
+# 二进制文件永远不要做换行符转换
+*.exe  binary
+*.dll  binary
+*.pdb  binary
